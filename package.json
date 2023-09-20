@@ -1,0 +1,17 @@
+{
+	"name": "digest-auth",
+	"version": "1.0.0",
+	"description": "Hacked together snippet for talking to HTTP servers that employ digest authentication.",
+	"main": "dist/digestClient.js",
+	"types": "dist/digestClient.d.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20.6.3",
+		"typescript": "^5.2.2"
+	}
+}
