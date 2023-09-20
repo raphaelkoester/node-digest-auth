@@ -11,7 +11,7 @@ declare class HTTPDigest {
     private _handleResponse;
     private _parseChallenge;
     private _compileParams;
-    private updateNC;
+    private _updateNC;
 }
 export declare function createDigestClient(username: string, password: string, useHttps?: boolean, shouldEnd?: boolean): HTTPDigest;
 export {};

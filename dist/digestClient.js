@@ -37,7 +37,6 @@ class HTTPDigest {
     }
     request(options, callback) {
         if (this.shouldEnd) {
-            console.log("DEVERIA ACABAR");
             return this.httpRequest
                 .request(options, (res) => {
                 this._handleResponse(options, res, callback);
@@ -45,7 +44,6 @@ class HTTPDigest {
                 .end();
         }
         else {
-            console.log("NAO DEVERIA ACABAR");
             return this.httpRequest.request(options, (res) => {
                 this._handleResponse(options, res, callback);
             });
@@ -63,7 +61,7 @@ class HTTPDigest {
             const cnonceHash = crypto.createHash("md5");
             cnonceHash.update(Math.random().toString(36));
             cnonce = cnonceHash.digest("hex").substr(0, 8);
-            nc = this.updateNC();
+            nc = this._updateNC();
         }
         const response = crypto.createHash("md5");
         const responseParams = [ha1.digest("hex"), challenge.nonce];
@@ -115,7 +113,7 @@ class HTTPDigest {
         }
         return "Digest " + parts.join(",");
     }
-    updateNC() {
+    _updateNC() {
         const max = 99999999;
         this.nc++;
         if (this.nc > max) {

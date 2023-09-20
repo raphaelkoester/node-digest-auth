@@ -1,41 +1,57 @@
 # HTTP Digest Client
 
-Hacked together snippet for talking to HTTP servers that employ digest
-authentication.
+This module provides an implementation for communicating with HTTP servers that
+utilize digest authentication. It's been structured to allow seamless requests
+to endpoints that require this form of authentication.
 
 ## Disclaimer
 
-Only tested against one server and spec is not followed fully. It works for me
-and for what I am doing.
+This client is designed based on experience with specific servers and might not
+cover all the intricacies of the HTTP digest authentication spec. It has been
+tested against a limited set of servers. While it satisfies the needs it was
+created for, users should employ caution and conduct tests against their
+specific use cases.
+
+## Installation
+
+    npm install node-digest-auth
 
 ## Usage
 
-    var digest = require('http-digest-client').createDigestClient('username', 'password');
+    import {createDigestClient } from 'node-digest-auth'
+
+    // 1 parameter: USERNAME
+    // 2 parameter: PASSWORD
+    // 3 parameter: SHOULD BE HTTPS
+    // 4 parameter: REQUEST SHOULD END OR NOT. IF NOT ENDED YOU CAN WRITE TO THE REQ.
+
+    const digest = createDigestClient('username', 'password', false, true);
+
     digest.request({
       host: 'hostname.com',
       path: '/path.json',
       port: 80,
       method: 'GET',
-      headers: { "User-Agent": "Simon Ljungberg" } // Set any headers you want
-    }, function (res) {
-      res.on('data', function (data) {
+      headers: { "User-Agent": "Raphael Fonseca" } // Custom headers can be added as needed
+    }, function(res) {
+      res.on('data', function(data) {
         console.log(data.toString());
       });
-      res.on('error', function (err) {
-        console.log('oh noes');
+      res.on('error', function(err) {
+        console.error('Error occurred:', err);
       });
     });
 
-The digest client will make one reques to the server, authentication response
-is calculated and then the request is made again. Hopefully you will then
-be authorized.
+The client will initially make an unauthenticated request to the server. Once a
+challenge is received, the client computes the necessary authentication response
+and then repeats the request. If all goes well, the server should then authorize
+the request.
 
 ## Writing to `req`
 
-I haven't yet figured out a way to write data to the final `req` object.
-Mainly because I haven't really needed it. Feel free to suggest solutions! :)
+set the last parameter of createDigestClient to false, it will return the req
+and you can finish it later.
 
 # License
 
-See LICENSE.
-
+Please refer to the LICENSE file for detailed information on licensing.

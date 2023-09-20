@@ -1,7 +1,7 @@
 {
-	"name": "digest-auth",
-	"version": "1.0.0",
-	"description": "Hacked together snippet for talking to HTTP servers that employ digest authentication.",
+	"name": "node-digest-auth",
+	"version": "1.0.1",
+	"description": "Digest Auth Package",
 	"main": "dist/digestClient.js",
 	"types": "dist/digestClient.d.ts",
 	"scripts": {
